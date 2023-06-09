@@ -17,6 +17,8 @@ from django.template.loader import render_to_string
 def index(request):
     return render(request, 'healthapp/index.html')
 
+def ourservices(request):
+    return render(request, 'healthapp/ourservices.html')
 
 def about(request):
     return render(request, 'healthapp/about.html')
