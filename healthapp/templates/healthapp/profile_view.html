@@ -1,0 +1,59 @@
+{% extends './profile_base.html' %}
+
+{% block content %}
+
+<section id="services">
+    <div class="container text-center">
+      <h1 class="title">Hello {{user}}</h1>
+    </div>
+  </section>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-lg-7 col-md-10 col-sm-12 col-xs-12">
+            <div class="card shadow rounded-0">
+                <div class="card-header">
+                    <div class="h5 card-title fw-bold">My Profile</div>
+                </div>
+                <div class="card-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="container">
+                                    <img src="{{user.profile.profile_img.url}}" alt=" Image" width="100px" srcset="">
+                                </div>
+
+                                <dl>
+                                    <dt class="text-muted">Username</dt>
+                                    <dd class="ps-4">{{ user.username }}</dd>
+
+                                    <dt class="text-muted">Fullname</dt>
+                                    <dd class="ps-4">{{user.profile.name}}</dd>
+
+                                    <dt class="text-muted">Email</dt>
+                                    <dd class="ps-4">{{user.profile.email}} </dd>
+
+                                    <dt class="text-muted">Phone</dt>
+                                    <dd class="ps-4">{{user.profile.phone}} </dd>
+
+                                    <dt class="text-muted">Address</dt>
+                                    <dd class="ps-4">{{user.profile.address}} </dd>
+
+                                    <dt class="text-muted">Bio</dt>
+                                    <dd class="ps-4"> {{user.profile.bio}} </dd>
+
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex w-100 text-end justify-content-end">
+                        <a href="/profile_update" class="btn btn btn-primary btn-sm bg-gradient rounded-0">Update Profile</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

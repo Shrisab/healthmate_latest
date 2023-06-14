@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 
 # Create your models here.
@@ -56,4 +57,22 @@ class consultationform(models.Model):
 
     def __str__(self):
         return self.name
+    
+
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete= models.CASCADE)
+
+    name = models.CharField(default = 'Update your Name', max_length=20, null=True)
+
+    address = models.CharField(default = 'Update your Address', max_length=100, null=True)
+    bio = models.CharField(default = "Update your bio", max_length=200, null=True)
+    email = models.CharField(default = "Update your Email", max_length=20, null=True)
+    phone = models.CharField(default = "Update your phone no", max_length=20, null=True)
+
+    profile_img =  models.ImageField(default = 'media/default-avatar.png', upload_to = 'media', null = True, blank = True)
+
+    def __str__(self):
+        return f"{self.user.username}'s profile"
     
