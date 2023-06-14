@@ -21,10 +21,16 @@ def index(request):
 
 def ourservices(request):
     return render(request, 'healthapp/ourservices.html')
+<<<<<<< HEAD
 
+=======
+>>>>>>> c4289f07e8d5c6bd99c0314bfd1e788213610bb2
 
 def about(request):
     return render(request, 'healthapp/about.html')
+
+def ourservices(request):
+    return render(request, 'healthapp/ourservices.html')
 
 
 def ourdoctors(request):
@@ -64,6 +70,10 @@ def Consultationform(request):
         message.content_subtype = 'html'
         message.send()
         return redirect("/")
+<<<<<<< HEAD
+=======
+
+>>>>>>> c4289f07e8d5c6bd99c0314bfd1e788213610bb2
     return render(request,"healthapp/consultationform.html")
 
 
