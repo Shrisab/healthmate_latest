@@ -70,6 +70,7 @@
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                 aria-expanded="false"> Welcome {{request.user}} </a>
               <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/profile_view">Profile</a></li>
                 <li><a class="dropdown-item" href="/logout">Logout</a></li>
               </ul>
             </li>
@@ -102,16 +103,20 @@
     <a id="nav-el" class="active" href="/./">
       <i class="bi bi-grid"></i></a>
   
-   
-    <a id="nav-el" href="#experience">
+    <a id="nav-el" href="#search">
+      <i class="bi bi-search"></i>
+  
+    </a>
+    <a id="nav-el" href="#chat">
       <i class="bi bi-chat-dots"></i></a>
     <a id="nav-el" href="#services">
       <i class="bi bi-bell"></i></a>
-    <a id="nav-el" href="#contact">
+    <a id="nav-el" href="/profile_view">
       <i class="bi bi-person-circle"></i></a>
   </nav>
 
   {% block content %}
+  
   {% endblock %}
 
 
@@ -258,7 +263,7 @@
             </div>
             
             {% csrf_token %}
-            <button type="submit" class="btn btn-primary">Submit my form</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
              <p style="text-align: center"class="message">Not registered? <a href="" data-bs-toggle="modal" data-bs-target="#signupModal">Create an account</a></p>
           </form>
         </div>

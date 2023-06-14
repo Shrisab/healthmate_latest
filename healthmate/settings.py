@@ -139,4 +139,3 @@ EMAIL_USE_TLS=True
 # EMAIL_USE_SSL=True
 EMAIL_HOST_USER = 'prajwal.181626@ncit.edu.np'
 EMAIL_HOST_PASSWORD ='@@Prjwl123'
-
