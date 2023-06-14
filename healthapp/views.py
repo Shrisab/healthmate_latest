@@ -17,9 +17,14 @@ from django.template.loader import render_to_string
 def index(request):
     return render(request, 'healthapp/index.html')
 
+def ourservices(request):
+    return render(request, 'healthapp/ourservices.html')
 
 def about(request):
     return render(request, 'healthapp/about.html')
+
+def ourservices(request):
+    return render(request, 'healthapp/ourservices.html')
 
 
 def ourdoctors(request):
@@ -50,15 +55,18 @@ def Consultationform(request):
             name=name, email=email, phone=phone, department=department, date=date, time=time, city=city, state=state)
         Consultationform.save()
         # return HttpResponse('Thank you for filling appointment.We will reach you ASAP')
-        email = EmailMessage(
-            subject="Confirmation mail",
-            body="Thank you for filling appointment.We will reach you ASAP",
-            from_email=settings.EMAIL_HOST_USER,
-            to=[email]
-        )
-        email.send()
+        mydict = {'name': name}
+        appoint_template='healthapp/email_appointment.html'
+        appoint_message=render_to_string(appoint_template,context=mydict)
+        subject='Thank You for filling form'
+        email_from = settings.EMAIL_HOST_USER
+        recipient_list = [email]
+        message = EmailMessage(subject, appoint_message, email_from, recipient_list)
+        message.content_subtype = 'html'
+        message.send()
+        return redirect("/")
 
-    return redirect("/")
+    return render(request,"healthapp/consultationform.html")
 
 
 def blog(request):
