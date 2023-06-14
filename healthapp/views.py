@@ -9,6 +9,8 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,  login, logout
 from django.template.loader import render_to_string
+from django.contrib.auth.decorators import login_required
+
 
 
 # Create your views here.
@@ -19,6 +21,10 @@ def index(request):
 
 def ourservices(request):
     return render(request, 'healthapp/ourservices.html')
+<<<<<<< HEAD
+
+=======
+>>>>>>> c4289f07e8d5c6bd99c0314bfd1e788213610bb2
 
 def about(request):
     return render(request, 'healthapp/about.html')
@@ -39,7 +45,6 @@ def ourdoctors(request):
     params = {'allDocs': allDocs}
     return render(request, 'healthapp/ourdoctors.html', params)
 
-
 def Consultationform(request):
     if request.method == 'POST':
         name = request.POST.get('name', '')
@@ -51,9 +56,9 @@ def Consultationform(request):
         city = request.POST.get('city', '')
         state = request.POST.get('state', '')
         # print(name,email,phone,department,date,time,city,state)
-        Consultationform = consultationform(
-            name=name, email=email, phone=phone, department=department, date=date, time=time, city=city, state=state)
+        Consultationform = consultationform( name=name, email=email, phone=phone, department=department, date=date, time=time, city=city, state=state)
         Consultationform.save()
+        messages.success(request," Your Response is well received.We will reach you ASAP")
         # return HttpResponse('Thank you for filling appointment.We will reach you ASAP')
         mydict = {'name': name}
         appoint_template='healthapp/email_appointment.html'
@@ -65,7 +70,10 @@ def Consultationform(request):
         message.content_subtype = 'html'
         message.send()
         return redirect("/")
+<<<<<<< HEAD
+=======
 
+>>>>>>> c4289f07e8d5c6bd99c0314bfd1e788213610bb2
     return render(request,"healthapp/consultationform.html")
 
 
