@@ -9,6 +9,8 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,  login, logout
 from django.template.loader import render_to_string
+from django.contrib.auth.decorators import login_required
+
 
 
 # Create your views here.
@@ -16,6 +18,9 @@ from django.template.loader import render_to_string
 
 def index(request):
     return render(request, 'healthapp/index.html')
+
+def ourservices(request):
+    return render(request, 'healthapp/ourservices.html')
 
 
 def about(request):
@@ -34,7 +39,6 @@ def ourdoctors(request):
     params = {'allDocs': allDocs}
     return render(request, 'healthapp/ourdoctors.html', params)
 
-
 def Consultationform(request):
     if request.method == 'POST':
         name = request.POST.get('name', '')
@@ -46,19 +50,21 @@ def Consultationform(request):
         city = request.POST.get('city', '')
         state = request.POST.get('state', '')
         # print(name,email,phone,department,date,time,city,state)
-        Consultationform = consultationform(
-            name=name, email=email, phone=phone, department=department, date=date, time=time, city=city, state=state)
+        Consultationform = consultationform( name=name, email=email, phone=phone, department=department, date=date, time=time, city=city, state=state)
         Consultationform.save()
+        messages.success(request," Your Response is well received.We will reach you ASAP")
         # return HttpResponse('Thank you for filling appointment.We will reach you ASAP')
-        email = EmailMessage(
-            subject="Confirmation mail",
-            body="Thank you for filling appointment.We will reach you ASAP",
-            from_email=settings.EMAIL_HOST_USER,
-            to=[email]
-        )
-        email.send()
-
-    return redirect("/")
+        mydict = {'name': name}
+        appoint_template='healthapp/email_appointment.html'
+        appoint_message=render_to_string(appoint_template,context=mydict)
+        subject='Thank You for filling form'
+        email_from = settings.EMAIL_HOST_USER
+        recipient_list = [email]
+        message = EmailMessage(subject, appoint_message, email_from, recipient_list)
+        message.content_subtype = 'html'
+        message.send()
+        return redirect("/")
+    return render(request,"healthapp/consultationform.html")
 
 
 def blog(request):
