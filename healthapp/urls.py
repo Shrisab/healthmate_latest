@@ -3,6 +3,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from . import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path("", views.index, name="healthapp"),
@@ -16,5 +17,14 @@ urlpatterns = [
     path('login/', views.handleLogin, name="handleLogin"),
     path('logout/', views.handelLogout, name="handleLogout"),
     path("profile_update/", views.profile_update, name="profile_update"),
-    path("profile_view/", views.profile_view, name="profile_view")
+    path("profile_view/", views.profile_view, name="profile_view"),
+    # path("change_password/",views.change_password,name="change_password")
+    path(
+        "change_password/",
+        auth_views.PasswordChangeView.as_view(
+            template_name='healthapp/change_password.html',
+            success_url = '/'
+        ),
+        name='change_password'
+    )
 ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
