@@ -8,13 +8,13 @@
  /* nav css  */
 .sidebar {
 
-   background-color: #4f48cf;
+  background-color: #4f48cf;
 
   width: max-content;
   padding: 0.7rem 1rem;
   z-index: 2;
   position: fixed;
-  bottom: 24rem;
+  /* bottom: 16rem; */
   left:35px;
   transform: translateX(-50%);
   display: flex;
@@ -23,8 +23,10 @@
   border-radius: 3rem;
   backdrop-filter: blur(15px);
   font-size: 1.2rem;
-   transition: all 0.2s ease-in-out; 
-   opacity: 0.8;
+  transition: all 0.2s ease-in-out; 
+  opacity: 0.8;
+
+  
 
  }
  .sidebar a {

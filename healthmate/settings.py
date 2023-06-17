@@ -39,7 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'healthapp.apps.HealthappConfig'
+    'healthapp.apps.HealthappConfig',
+    'crispy_forms'
+]
+
+CRISPY_TEMPLATE_PACK=[
+    'bootstrap4'
 ]
 
 MIDDLEWARE = [
@@ -139,4 +144,3 @@ EMAIL_USE_TLS=True
 # EMAIL_USE_SSL=True
 EMAIL_HOST_USER = 'prajwal.181626@ncit.edu.np'
 EMAIL_HOST_PASSWORD ='@@Prjwl123'
-

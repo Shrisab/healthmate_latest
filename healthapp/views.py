@@ -9,6 +9,9 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,  login, logout
 from django.template.loader import render_to_string
+from django.contrib.auth.decorators import login_required
+from .forms import  ProfileForm
+
 
 
 # Create your views here.
@@ -17,14 +20,29 @@ from django.template.loader import render_to_string
 def index(request):
     return render(request, 'healthapp/index.html')
 
+def profile_view(request):
+    return render(request,'healthapp/profile_view.html')
+
+@login_required(login_url='/login/')
+def profile_update(request):
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        if form.is_valid():
+            form.save()
+            username = request.user.username
+            messages.success(request, f'{username}, Your profile is updated.')
+            return redirect('profile_view')
+    else:
+        form = ProfileForm(instance=request.user.profile)
+    context = {'form':form}
+    return render(request, 'healthapp/profile_update.html', context)
+
 def ourservices(request):
     return render(request, 'healthapp/ourservices.html')
+
 
 def about(request):
     return render(request, 'healthapp/about.html')
-
-def ourservices(request):
-    return render(request, 'healthapp/ourservices.html')
 
 
 def ourdoctors(request):
@@ -39,7 +57,7 @@ def ourdoctors(request):
     params = {'allDocs': allDocs}
     return render(request, 'healthapp/ourdoctors.html', params)
 
-
+@login_required(login_url='/login/')
 def Consultationform(request):
     if request.method == 'POST':
         name = request.POST.get('name', '')
@@ -51,9 +69,9 @@ def Consultationform(request):
         city = request.POST.get('city', '')
         state = request.POST.get('state', '')
         # print(name,email,phone,department,date,time,city,state)
-        Consultationform = consultationform(
-            name=name, email=email, phone=phone, department=department, date=date, time=time, city=city, state=state)
+        Consultationform = consultationform( name=name, email=email, phone=phone, department=department, date=date, time=time, city=city, state=state)
         Consultationform.save()
+        messages.success(request," Your Response is well received.We will reach you ASAP")
         # return HttpResponse('Thank you for filling appointment.We will reach you ASAP')
         mydict = {'name': name}
         appoint_template='healthapp/email_appointment.html'
@@ -65,7 +83,6 @@ def Consultationform(request):
         message.content_subtype = 'html'
         message.send()
         return redirect("/")
-
     return render(request,"healthapp/consultationform.html")
 
 
@@ -146,7 +163,7 @@ def handleLogin(request):
             messages.error(request, "Invalid credentials! Please try again")
             return redirect("/")
 
-    return HttpResponse("404- Not found")
+    return render(request, 'healthapp/login.html')
 
 
 def handelLogout(request):
