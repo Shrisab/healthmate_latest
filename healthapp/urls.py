@@ -26,5 +26,9 @@ urlpatterns = [
             success_url = '/'
         ),
         name='change_password'
-    )
+    ),
+    path('blog_home', views.blog_home, name="blog_home"),
+    path('post/<int:pk>', views.view_post, name="view-post"),
+    path('save_comment/', views.save_comment, name="save-comment"),
+    path('delete_comment/<int:pk>', views.delete_comment, name="delete-comment")
 ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
