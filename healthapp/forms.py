@@ -41,21 +41,21 @@ class savePost(forms.ModelForm):
             raise forms.ValidationError('Selected User is invalid')
 
 
-class saveComment(forms.ModelForm):
-    post = forms.CharField(max_length=30, label="Post")
-    name = forms.CharField(max_length=250, label="Name")
-    email = forms.CharField(max_length=250, label="Email")
-    subject = forms.CharField(max_length=250, label="Subject")
-    message = forms.Textarea()
+# class saveComment(forms.ModelForm):
+#     post = forms.CharField(max_length=30, label="Post")
+#     name = forms.CharField(max_length=250, label="Name")
+#     email = forms.CharField(max_length=250, label="Email")
+#     subject = forms.CharField(max_length=250, label="Subject")
+#     message = forms.Textarea()
 
-    class Meta():
-        model = models.Comment
-        fields = ('post', 'name', 'email', 'subject', 'message',)
+#     class Meta():
+#         model = models.Comment
+#         fields = ('post', 'name', 'email', 'subject', 'message',)
 
-    def clean_post(self):
-        postID = self.cleaned_data['post']
-        try:
-            post = models.Post.objects.get(id=postID)
-            return post
-        except:
-            raise forms.ValidationError('Post ID is invalid')
+#     def clean_post(self):
+#         postID = self.cleaned_data['post']
+#         try:
+#             post = models.Post.objects.get(id=postID)
+#             return post
+#         except:
+#             raise forms.ValidationError('Post ID is invalid')

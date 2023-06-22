@@ -215,62 +215,61 @@ def view_post(request, pk=None):
     context['post'] = post
     context['latest'] = models.Post.objects.exclude(id=pk).filter(
         status=1).order_by('-date_created').all()[:10]
-    context['comments'] = models.Comment.objects.filter(post=post).all()
     context['actions'] = False
     if request.user.is_superuser or request.user.id == post.user.id:
         context['actions'] = True
     return render(request, 'blog/single_post.html', context)
 
 
-def save_comment(request):
-    bannedwords = ["me", "you"]
-    resp = {'status': 'failed', 'msg': '', 'id': None}
-    if request.method == 'POST':
-        if request.POST['id'] == '':
-            form = forms.saveComment(request.POST)
-        else:
-            comment = models.Comment.objects.get(id=request.POST['id'])
-            form = forms.saveComment(request.POST, instance=comment)
+# def save_comment(request):
+#     bannedwords = ["me", "you"]
+#     resp = {'status': 'failed', 'msg': '', 'id': None}
+#     if request.method == 'POST':
+#         if request.POST['id'] == '':
+#             form = forms.saveComment(request.POST)
+#         else:
+#             comment = models.Comment.objects.get(id=request.POST['id'])
+#             form = forms.saveComment(request.POST, instance=comment)
 
-        posted_comment = request.POST["message"]
-        # for item in bannedwords:
-        #     if item in posted_comment:
+#         posted_comment = request.POST["message"]
+#         # for item in bannedwords:
+#         #     if item in posted_comment:
 
-        #         return render(request, 'profile.html')
+#         #         return render(request, 'profile.html')
 
-        if form.is_valid():
-            form.save()
-            if request.POST['id'] == '':
-                commentID = models.Post.objects.all().last().id
-            else:
-                commentID = request.POST['id']
-            resp['id'] = commentID
-            resp['status'] = 'success'
-            messages.success(request, "Comment has been saved successfully.")
-        else:
-            for field in form:
-                for error in field.errors:
-                    if not resp['msg'] == '':
-                        resp['msg'] += str('<br />')
-                    resp['msg'] += str(f"[{field.label}] {error}")
+#         if form.is_valid():
+#             form.save()
+#             if request.POST['id'] == '':
+#                 commentID = models.Post.objects.all().last().id
+#             else:
+#                 commentID = request.POST['id']
+#             resp['id'] = commentID
+#             resp['status'] = 'success'
+#             messages.success(request, "Comment has been saved successfully.")
+#         else:
+#             for field in form:
+#                 for error in field.errors:
+#                     if not resp['msg'] == '':
+#                         resp['msg'] += str('<br />')
+#                     resp['msg'] += str(f"[{field.label}] {error}")
 
-    else:
-        resp['msg'] = "Request has no data sent."
-    return HttpResponse(json.dumps(resp), content_type="application/json")
+#     else:
+#         resp['msg'] = "Request has no data sent."
+#     return HttpResponse(json.dumps(resp), content_type="application/json")
 
 
-@login_required
-def delete_comment(request, pk=None):
-    resp = {'status': 'failed', 'msg': ''}
-    if pk is None:
-        resp['msg'] = 'Comment ID is Invalid'
-        return HttpResponse(json.dumps(resp), content_type="application/json")
-    try:
-        comment = models.Comment.objects.get(id=pk)
-        comment.delete()
-        messages.success(request, "Comment has been deleted successfully.")
-        resp['status'] = 'success'
-    except:
-        resp['msg'] = 'Comment ID is Invalid'
+# @login_required
+# def delete_comment(request, pk=None):
+#     resp = {'status': 'failed', 'msg': ''}
+#     if pk is None:
+#         resp['msg'] = 'Comment ID is Invalid'
+#         return HttpResponse(json.dumps(resp), content_type="application/json")
+#     try:
+#         comment = models.Comment.objects.get(id=pk)
+#         comment.delete()
+#         messages.success(request, "Comment has been deleted successfully.")
+#         resp['status'] = 'success'
+#     except:
+#         resp['msg'] = 'Comment ID is Invalid'
 
-    return HttpResponse(json.dumps(resp), content_type="application/json")
+#     return HttpResponse(json.dumps(resp), content_type="application/json")

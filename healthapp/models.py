@@ -92,15 +92,3 @@ class Post(models.Model):
 
     def __str__(self):
         return f"{self.title} - {self.user.username}"
-
-class Comment(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE,default="")
-    name = models.CharField(max_length=250)
-    email = models.CharField(max_length=250)
-    subject = models.CharField(max_length=250)
-    message = models.TextField()
-    date_created = models.DateTimeField(default=timezone.now)
-    date_updated = models.DateTimeField(auto_now = True)
-
-    def __str__(self):
-        return f"{self.name} - {self.post.title}"  

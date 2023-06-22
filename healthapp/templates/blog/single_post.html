@@ -51,21 +51,21 @@
                 <div class="post-details-content mb-100">{{post.content|safe}}</div>
 
                 <!-- Comment Area Start -->
-                <div class="comment_area clearfix mb-100">
+                <!-- <div class="comment_area clearfix mb-100">
                     <h4 class="mb-50">Comments</h4>
 
                     <ol>
-                        {% for comment in comments %}
+                        {% for comment in comments %} -->
                         <!-- Single Comment Area -->
-                        <li class="single_comment_area">
+                        <!-- <li class="single_comment_area"> -->
                             <!-- Comment Content -->
-                            <div class="comment-content d-flex">
+                            <!-- <div class="comment-content d-flex"> -->
                                 <!-- Comment Author -->
-                                <div class="comment-author">
+                                <!-- <div class="comment-author">
                                     <img src="{% static 'img/ava.jpg' %}" alt="{{comment.name}}">
-                                </div>
+                                </div> -->
                                 <!-- Comment Meta -->
-                                <div class="comment-meta">
+                                <!-- <div class="comment-meta">
                                     <div class="d-flex">
                                         <a href="mailto:{{comment.email}}" target="_blank"
                                             class="post-author">{{comment.name}}</a>
@@ -76,18 +76,17 @@
                                     </div>
                                     <larger class="font-weight-bold">{{comment.subject}}</larger>
                                     <p>{{comment.message}}</p>
-                                </div>
-                            </div>
-                        </li>
+                                </div> -->
+                            <!-- </div> -->
+                        <!-- </li>
                         {% endfor %}
-                    </ol>
-                </div>
-
-                <div class="post-a-comment-area mb-30 clearfix">
-                    <h4 class="mb-50">Leave a Comment</h4>
+                    </ol> -->
+                <!-- </div> -->
+                <!-- <div class="post-a-comment-area mb-30 clearfix">
+                    <h4 class="mb-50">Leave a Comment</h4>  -->
 
                     <!-- Reply Form -->
-                    <div class="contact-form-area">
+                    <!-- <div class="contact-form-area">
                         <form action="" id="comment-form" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="id" value="">
@@ -114,8 +113,8 @@
                                 </div>
                             </div>
                         </form>
-                    </div>
-                </div>
+                    </div> -->
+                <!-- </div> -->
             </div>
 
             <!-- Sidebar Widget -->
@@ -158,7 +157,7 @@
     </div>
 </section>
 {% endblock content %}
-{% block javascripts %}
+<!-- {% block javascripts %}
 <script>
     $(function () {
         if ($('.single_comment_area').length <= 0) {
@@ -253,4 +252,4 @@
         })
     })
 </script>
-{% endblock javascripts %}
+{% endblock javascripts %} -->
