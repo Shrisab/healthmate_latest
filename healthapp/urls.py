@@ -4,6 +4,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from . import views
 from django.contrib.auth import views as auth_views
+from .views import verify_payment
 
 urlpatterns = [
     path("", views.index, name="healthapp"),
@@ -18,6 +19,7 @@ urlpatterns = [
     path('logout/', views.handelLogout, name="handleLogout"),
     path("profile_update/", views.profile_update, name="profile_update"),
     path("profile_view/", views.profile_view, name="profile_view"),
+    path('api/verify_payment',verify_payment,name='verify_payment'),
     # path("change_password/",views.change_password,name="change_password")
     path(
         "change_password/",

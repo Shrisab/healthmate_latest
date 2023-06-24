@@ -23,7 +23,7 @@
         <div class="d-grid gap-2 d-md-flex justify-content-md-start">
           <button type="button" class="btn btn-primary btn-lg px-4 me-md-2" data-bs-toggle="modal"
             data-bs-target="#exampleModal">Book appointment</button>
-
+            <button id="payment-button">Pay with Khalti</button>
         </div>
       </div>
 
@@ -161,7 +161,65 @@
   </div>
 </div>
 <!------------------------------Modal end------------------------------------>
+<script>
 
+  function verifyPayment(payload) {
+  fetch("{% url 'verify_payment' %}", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(payload)
+  })
+    .then(response => response.json())
+    .then(data => {
+      // Handle the response data
+      print("DATA GAYOOO")
+      alert(data);
+    })
+    .catch(error => {
+      // Handle any errors
+      print("ERROR AYO MUJI")
+      alert(error.message);
+    });
+}
+
+  var config = {
+      // replace the publicKey with yours
+      "publicKey": "test_public_key_1afc5ee3bf794d5c9120d097b96faf33",
+      "productIdentity": "1234567890",
+      "productName": "Dragon",
+      "productUrl": "http://gameofthrones.wikia.com/wiki/Dragons",
+      "paymentPreference": [
+          "KHALTI",
+          "EBANKING",
+          "MOBILE_BANKING",
+          "CONNECT_IPS",
+          "SCT",
+          ],
+      "eventHandler": {
+          onSuccess (payload) {
+              // hit merchant api for initiating verfication
+              verifyPayment(payload);
+              console.log(payload);
+              console.log(payload.token);
+          },
+          onError (error) {
+              console.log(error);
+          },
+          onClose () {
+              console.log('widget is closing');
+          }
+      }
+  };
+
+  var checkout = new KhaltiCheckout(config);
+  var btn = document.getElementById("payment-button");
+  btn.onclick = function () {
+      // minimum transaction amount must be 10, i.e 1000 in paisa.
+      checkout.show({amount: 1000});
+  }
+</script>
 
 
 

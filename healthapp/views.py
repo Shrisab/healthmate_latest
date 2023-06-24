@@ -13,8 +13,11 @@ from django.contrib.auth.decorators import login_required
 from .forms import ProfileForm
 import json
 from healthapp import models, forms
-
-
+import requests
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.response import Response
+from django.conf import settings
 # Create your views here.
 
 
@@ -62,6 +65,38 @@ def ourdoctors(request):
     params = {'allDocs': allDocs}
     return render(request, 'healthapp/ourdoctors.html', params)
 
+
+@csrf_exempt
+def verify_payment(request):
+    if request.method == 'POST':
+        payload = json.loads(request.body)
+        print(payload['token'])
+        token = payload['token']
+        amount = payload['amount']
+
+        url = "https://khalti.com/api/v2/payment/verify/"
+        payload = {
+        "token": token,
+        "amount": amount
+        }
+        headers = {
+        "Authorization": "Key test_secret_key_bbdad0e54268438392ad672c83b0e0ba"
+        }
+
+        response = requests.request("POST", url, headers=headers, data=payload)
+        
+        response_data = json.loads(response.text)
+        status_code = str(response.status_code)
+
+        if status_code == '400':
+            response = JsonResponse({'status':'false','message':response_data['details']}, status=500)
+            return response
+
+        import pprint 
+        pp = pprint.PrettyPrinter(indent=4)
+        pp.pprint(response_data)
+        
+        return JsonResponse(f"Payment Done !! With IDX. {response_data['idx']}",safe=False)
 
 @login_required(login_url='/login/')
 def Consultationform(request):
