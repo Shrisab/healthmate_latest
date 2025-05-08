@@ -1,0 +1,98 @@
+{% extends 'healthapp/base.html' %}{% load static %}
+{% block content %}
+<head>
+    <link rel="stylesheet" href="/static/blog_style.css">
+</head>
+
+ 
+
+<!-- ##### Intro News Area Start ##### -->
+<section class="intro-news-area section-padding-100-0 mb-70">
+    <div class="container shadow p-3 mb-5 bg-white rounded">
+        <div class="row justify-content-center">
+            <!-- Intro News Tabs Area -->
+            <div class="col-12 col-lg-12">
+                <div class="intro-news-tab">
+
+                    <!-- Intro News Filter -->
+                    <div class="intro-news-filter d-flex justify-content-between">
+                        <h6>All the news</h6>
+                        <nav>
+                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                <a class="nav-item nav-link active" id="nav1" data-toggle="tab" href="#nav-1" role="tab" aria-controls="nav-1" aria-selected="true">Latest</a>
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="tab-content" id="nav-tabContent">
+
+                        <div class="tab-pane fade show active" id="nav-1" role="tabpanel" aria-labelledby="nav1">
+                            <div class="row">
+                                {% for lpost in latest_top %}
+                                <!-- Single News Area -->
+                                <div class="col-12 col-sm-6">
+                                    <div class="single-blog-post style-2 mb-5">
+                                        <!-- Blog Thumbnail -->
+                                        <div class="blog-thumbnail">
+                                            <a href="{% url 'view-post' lpost.id %}"><img src="{{lpost.banner_path.url}}" alt="{{lpost.title}}"></a>
+                                        </div>
+
+                                        <!-- Blog Content -->
+                                        <div class="blog-content">
+                                            <span class="post-date">{{lpost.date_created|date:"M d, Y"}}</span>
+                                            <a href="{% url 'view-post' lpost.id %}" class="post-title">{{lpost.title}}</a>
+                                            <a href="mailto:{{lpost.user.email}}" target="_blank" class="post-author">By {{lpost.user.username}}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                {% for lpost in latest_bottom %}
+                                <!-- Single News Area -->
+                                <div class="col-12 col-sm-6">
+                                    <div class="single-blog-post d-flex style-4 mb-30">
+                                        <!-- Blog Thumbnail -->
+                                        <div class="blog-thumbnail">
+                                            <a href="{% url 'view-post' lpost.id %}"><img src="{{lpost.banner_path.url}}" alt="{{lpost.title}}"></a>
+                                        </div>
+
+                                        <!-- Blog Content -->
+                                        <div class="blog-content">
+                                            <span class="post-date">{{lpost.date_created|date:"M d, Y"}}</span>
+                                            <a href="{% url 'view-post' lpost.id %}" class="post-title">{{lpost.title}}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar Widget 
+            <div class="col-12 col-sm-9 col-md-6 col-lg-4">
+                <div class="sidebar-area">
+
+                   <! Add Widget 
+                   <div class="single-widget-area add-widget mb-30">
+                        <a href="#">
+                            <img src="{% static 'img/bg-img/add3.png' %}" alt="">
+                        </a>
+                    </div>
+                    
+                </div>
+            </div>
+            -->
+        </div>
+    </div>
+</section>
+<!-- ##### Intro News Area End ##### -->
+
+<!-- ##### Add Area Start ##### -->
+<div class="big-add-area mb-100">
+    <div class="container-fluid">
+        <a href="https://ncit.edu.np/"><img src="{% static 'img/bg-img/ncitad.gif' %}" alt=""></a>
+    </div>
+</div>
+<!-- ##### Add Area End ##### -->
+{% endblock content %}

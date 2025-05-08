@@ -39,7 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'healthapp.apps.HealthappConfig'
+    'healthapp.apps.HealthappConfig',
+    'crispy_forms'
+]
+
+CRISPY_TEMPLATE_PACK=[
+    'bootstrap4'
 ]
 
 MIDDLEWARE = [
@@ -139,3 +144,6 @@ EMAIL_USE_TLS=True
 # EMAIL_USE_SSL=True
 EMAIL_HOST_USER = 'prajwal.181626@ncit.edu.np'
 EMAIL_HOST_PASSWORD ='@@Prjwl123'
+
+KHALTI_SECRET_KEY = "test_secret_key_bbdad0e54268438392ad672c83b0e0ba"
+KHALTI_VERIFY_URL = "https://khalti.com/api/v2/payment/verify/"

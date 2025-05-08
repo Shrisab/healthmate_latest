@@ -1,0 +1,47 @@
+{% extends './profile_base.html' %}
+
+{% block content %}
+<head>
+    <link rel="stylesheet" href="/static/profile_update.css">
+</head>
+<main class="main-container">
+    <form class='container' action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
+        <div class="profile-photo-container profile-photo-form-container">
+            <p class="profile-page-heading">Edit your profile</p>
+            <img src="{{user.profile.profile_img.url}}" alt="user-image" width="" srcset="">
+            {{form.profile_img}}
+        </div>
+
+
+        <div class="user-content-container user-profile-form-container">
+            <ul>
+                <li class="name">
+                    <label for="user-name">Your Name</label>
+                    {{form.name}}
+                </li>
+              
+                <li class="email">
+                    <label for="user-desc">Email</label>
+                    {{form.email}}
+                </li>
+
+                <li class="phone">
+                    <label for="user-desc">Phone</label>
+                    {{form.phone}}
+                </li>
+                <li class="phone">
+                    <label for="user-address">Address</label>
+                    {{form.address}}
+                </li>
+
+                <li class="bio">
+                    <label for="user-desc">Bio</label>
+                    {{form.bio}}
+                </li>
+            </ul>
+            <button class="profile-save-button"> Save </button>
+        </div>
+    </form>
+</main>
+
+{% endblock content %}
